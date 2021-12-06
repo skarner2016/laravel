@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+    php:
+        image: skarner2016/php80:latest
+        ports:
+            - 9000:9000
+            - 8000:8000
+        volumes:
+            - ${WORKSPACE}/${PROJECT_NAME}:/var/www
+            - ${WORKSPACE}/${PROJECT_NAME}:/var/log/php
+        working_dir: /var/www
+        command: [ "/usr/local/bin/php", "/var/www/${PROJECT_NAME}/artisan", "octane:start", "--watch", "--host=0.0.0.0" ]
+        restart: always
+
+    nginx:
+        image: nginx
+        volumes:
+            - ${WORKSPACE}/${PROJECT_NAME}:/usr/share/nginx/html
+            - ${WORKSPACE}/${PROJECT_NAME}/nginx/docker:/etc/nginx/conf.d
+        ports:
+            - 80:80
+            - 8000:8000
+        restart: always
+
+    mysql:
+        image: mysql:latest
+        ports:
+            - 3306:3306
+        volumes:
+            - ${DATA}/mysql:/var/lib/mysql
+            - ${WORKSPACE}/${PROJECT_NAME}/docker/mysql:/etc/mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+    redis:
+        image: redis:alpine
+        ports:
+            - 6379:6379
+        volumes:
+            - ${DATA}/redis:/data
+            - ${WORKSPACE}/${PROJECT_NAME}/docker/redis/redis.conf:/etc/redis/redis.conf
+        restart: always
