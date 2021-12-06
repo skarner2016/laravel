@@ -45,6 +45,6 @@ services:
             - 6379:6379
         volumes:
             - ${DATA}/redis:/data
-            - ${WORKSPACE}/${PROJECT_NAME}/docker/redis/redis.conf:/etc/redis/redis.conf
+            - ${WORKSPACE}/${PROJECT_NAME}/docker/redis:/etc/redis
         command: ["redis-server", "/etc/redis/redis.conf"]
         restart: always
