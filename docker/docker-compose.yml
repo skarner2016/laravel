@@ -3,6 +3,7 @@ version: "3"
 services:
     php:
         image: skarner2016/php80:latest
+        container_name: php
         ports:
             - 9000:9000
             - 8000:8000
@@ -15,6 +16,7 @@ services:
 
     nginx:
         image: nginx
+        container_name: nginx
         volumes:
             - ${WORKSPACE}/${PROJECT_NAME}:/usr/share/nginx/html
             - ${WORKSPACE}/${PROJECT_NAME}/nginx/docker:/etc/nginx/conf.d
@@ -25,6 +27,7 @@ services:
 
     mysql:
         image: mysql:latest
+        container_name: mysql
         ports:
             - 3306:3306
         volumes:
@@ -36,11 +39,12 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
     redis:
-        image: redis:alpine
+        image: redis:latest
+        container_name: redis
         ports:
             - 6379:6379
         volumes:
             - ${DATA}/redis:/data
             - ${WORKSPACE}/${PROJECT_NAME}/docker/redis/redis.conf:/etc/redis/redis.conf
-        command: ["/usr/local/bin/redis-server","/etc/redis/redis.conf"]
+        command: ["redis-server", "/etc/redis/redis.conf"]
         restart: always
