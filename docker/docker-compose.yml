@@ -8,7 +8,7 @@ services:
             - 9000:9000
             - 8000:8000
         volumes:
-            - ${WORKSPACE}/${PROJECT_NAME}:/var/www
+            - ${WORKSPACE}/${PROJECT_NAME}:/var/www/${PROJECT_NAME}
             - ${WORKSPACE}/${PROJECT_NAME}:/var/log/php
         working_dir: /var/www
 #        command: [ "/usr/local/bin/php", "/var/www/${PROJECT_NAME}/artisan", "octane:start", "--watch", "--host=0.0.0.0" ]
