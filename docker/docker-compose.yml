@@ -47,6 +47,5 @@ services:
         volumes:
             - ${DATA}/redis:/data
             - ${WORKSPACE}/${PROJECT_NAME}/docker/conf/redis:/etc/redis
-            - ${WORKSPACE}/${PROJECT_NAME}/docker/log/redis:/var/log/redis
         command: ["redis-server", "/etc/redis/redis.conf"]
         restart: always
