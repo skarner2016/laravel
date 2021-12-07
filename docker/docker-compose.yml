@@ -9,9 +9,9 @@ services:
             - 8000:8000
         volumes:
             - ${WORKSPACE}/${PROJECT_NAME}:/var/www/${PROJECT_NAME}
-            - ${WORKSPACE}/${PROJECT_NAME}:/var/log/php
+            - ${WORKSPACE}/${PROJECT_NAME}/docker/log/php:/var/log/php
         working_dir: /var/www
-#        command: [ "/usr/local/bin/php", "/var/www/${PROJECT_NAME}/artisan", "octane:start", "--watch", "--host=0.0.0.0" ]
+        command: [ "/usr/local/bin/php", "/var/www/${PROJECT_NAME}/artisan", "octane:start", "--watch", "--host=0.0.0.0" ]
         restart: always
 
     nginx:
@@ -19,7 +19,8 @@ services:
         container_name: nginx
         volumes:
             - ${WORKSPACE}/${PROJECT_NAME}:/var/www/${PROJECT_NAME}
-            - ${WORKSPACE}/${PROJECT_NAME}/docker/nginx:/etc/nginx/conf.d
+            - ${WORKSPACE}/${PROJECT_NAME}/docker/conf/nginx:/etc/nginx/conf.d
+            - ${WORKSPACE}/${PROJECT_NAME}/docker/log/nginx:/var/log/nginx
         ports:
             - 80:80
         restart: always
@@ -31,7 +32,8 @@ services:
             - 3306:3306
         volumes:
             - ${DATA}/mysql:/var/lib/mysql
-            - ${WORKSPACE}/${PROJECT_NAME}/docker/mysql:/etc/mysql
+            - ${WORKSPACE}/${PROJECT_NAME}/docker/conf/mysql:/etc/mysql
+            - ${WORKSPACE}/${PROJECT_NAME}/docker/log/mysql:/var/log/mysql
         command: --default-authentication-plugin=mysql_native_password
         restart: always
         environment:
@@ -44,6 +46,7 @@ services:
             - 6379:6379
         volumes:
             - ${DATA}/redis:/data
-            - ${WORKSPACE}/${PROJECT_NAME}/docker/redis:/etc/redis
+            - ${WORKSPACE}/${PROJECT_NAME}/docker/conf/redis:/etc/redis
+            - ${WORKSPACE}/${PROJECT_NAME}/docker/log/redis:/var/log/redis
         command: ["redis-server", "/etc/redis/redis.conf"]
         restart: always
