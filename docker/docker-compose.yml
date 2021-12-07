@@ -22,7 +22,6 @@ services:
             - ${WORKSPACE}/${PROJECT_NAME}/nginx/docker:/etc/nginx/conf.d
         ports:
             - 80:80
-            - 8000:8000
         restart: always
 
     mysql:
