@@ -123,6 +123,11 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    /**
+     * customer
+     */
+    'log' => env('APP_LOG'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

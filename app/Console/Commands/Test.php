@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Libraries\ErrorCode;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -38,9 +39,14 @@ class Test extends Command
      */
     public function handle()
     {
-        $res = DB::table("apis")->first();
+        // $res = app()->environment('local');
+        // $res = config('app.log');
+        //
+        // dump($res ?? '$res === null');
 
-        dd($res ?? '$res === null');
+        $ba
+
+
         return Command::SUCCESS;
     }
 }
