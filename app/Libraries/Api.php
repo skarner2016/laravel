@@ -9,7 +9,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 /**
  * 统一返回
  * Class Api
- * @package App\Lib
+ * @package App\Libraries
  */
 class Api
 {

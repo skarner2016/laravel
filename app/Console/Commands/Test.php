@@ -44,8 +44,6 @@ class Test extends Command
         //
         // dump($res ?? '$res === null');
 
-        $ba
-
 
         return Command::SUCCESS;
     }
